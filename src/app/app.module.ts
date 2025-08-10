@@ -1,16 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'; // Módulo para peticiones HTTP
+import { ReactiveFormsModule } from '@angular/forms'; // Módulo para formularios reactivos
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ColaboradoresComponent } from './components/colaboradores/colaboradores.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ColaboradoresComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule, 
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

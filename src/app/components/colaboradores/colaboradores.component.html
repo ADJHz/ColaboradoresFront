@@ -1,0 +1,108 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">Sistema de Colaboradores</h1>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            {{ modoEdicion ? 'Actualizar Colaborador' : 'Crear Colaborador' }}
+        </div>
+        <div class="card-body">
+            <form [formGroup]="colaboradorForm" (ngSubmit)="onSubmit()">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="nombre_completo" class="form-label">Nombre Completo</label>
+                        <input type="text" formControlName="nombre_completo" class="form-control" id="nombre_completo">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="empresa" class="form-label">Empresa</label>
+                        <input type="text" formControlName="empresa" class="form-control" id="empresa">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="area" class="form-label">Área</label>
+                        <input type="text" formControlName="area" class="form-control" id="area">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="departamento" class="form-label">Departamento</label>
+                        <input type="text" formControlName="departamento" class="form-control" id="departamento">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="puesto" class="form-label">Puesto</label>
+                        <input type="text" formControlName="puesto" class="form-control" id="puesto">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="fecha_de_alta" class="form-label">Fecha de Alta</label>
+                        <input type="date" formControlName="fecha_de_alta" class="form-control" id="fecha_de_alta">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="fotografia" class="form-label">Fotografía</label>
+                        <input type="file" (change)="onFileSelected($event)" class="form-control" id="fotografia" accept="image/*">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="estatus" class="form-label">Estatus</label>
+                        <div class="form-check form-switch">
+                            <input formControlName="estatus" class="form-check-input" type="checkbox" role="switch" id="estatus">
+                            <label class="form-check-label" for="estatus">Activo</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-primary me-2" [disabled]="colaboradorForm.invalid">
+              {{ modoEdicion ? 'Actualizar' : 'Crear' }}
+            </button>
+                        <button type="button" class="btn btn-secondary" (click)="resetearFormulario()">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            Lista de Colaboradores
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Completo</th>
+                            <th>Empresa</th>
+                            <th>Área</th>
+                            <th>Departamento</th>
+                            <th>Puesto</th>
+                            <th>Fecha de Alta</th>
+                            <th>Estatus</th>
+                            <th>Fotografía</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let colaborador of colaboradores">
+                            <td>{{ colaborador.id }}</td>
+                            <td>{{ colaborador.nombre_completo }}</td>
+                            <td>{{ colaborador.empresa }}</td>
+                            <td>{{ colaborador.area }}</td>
+                            <td>{{ colaborador.departamento }}</td>
+                            <td>{{ colaborador.puesto }}</td>
+                            <td>{{ colaborador.fecha_de_alta | date }}</td>
+                            <td>{{ colaborador.estatus ? 'Activo' : 'Inactivo' }}</td>
+                            <td>
+                                <img *ngIf="colaborador.fotografia" src="http://localhost:8000/fotografias/{{ colaborador.fotografia }}" alt="Fotografía" style="width: 50px;">
+                            </td>
+                            <td>
+                                <button class="btn btn-warning btn-sm me-2" (click)="editarColaborador(colaborador)">Editar</button>
+                                <button class="btn btn-danger btn-sm" (click)="eliminarColaborador(colaborador.id)">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="colaboradores.length === 0">
+                            <td colspan="10" class="text-center">No hay colaboradores registrados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
