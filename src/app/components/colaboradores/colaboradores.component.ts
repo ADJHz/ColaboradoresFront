@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColaboradorService } from '../../services/colaborador.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-colaboradores',
@@ -32,6 +33,7 @@ export class ColaboradoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerColaboradores();
+    this.suscribirASockets();
   }
 
   obtenerColaboradores(): void {
@@ -45,39 +47,76 @@ export class ColaboradoresComponent implements OnInit {
     });
   }
 
+  suscribirASockets(): void {
+    // Suscribirse al evento de creación
+    this.colaboradorService.onColaboradorCreado().subscribe((colaborador: any) => {
+      this.colaboradores.push(colaborador);
+    });
+
+    // Suscribirse al evento de actualización
+    this.colaboradorService.onColaboradorActualizado().subscribe((colaboradorActualizado: any) => {
+      const index = this.colaboradores.findIndex(c => c.id === colaboradorActualizado.id);
+      if (index !== -1) {
+        this.colaboradores[index] = colaboradorActualizado;
+      }
+    });
+
+    // Suscribirse al evento de eliminación
+    this.colaboradorService.onColaboradorEliminado().subscribe((data: any) => {
+      this.colaboradores = this.colaboradores.filter(c => c.id !== data.id);
+    });
+  }
+
   onSubmit(): void {
     const formData = new FormData();
     Object.keys(this.colaboradorForm.controls).forEach(key => {
       const control = this.colaboradorForm.get(key);
+      // Si el valor es null, envía una cadena vacía
       if (control) {
-        formData.append(key, control.value);
+        formData.append(key, control.value !== null && control.value !== undefined ? control.value : '');
       }
     });
+
+    // Debug: imprime el contenido de FormData (type cast para evitar error TS)
+    for (const pair of (formData as any).entries()) {
+      console.log(pair[0]+ ':', pair[1]);
+    }
 
     if (this.modoEdicion) {
       // Lógica para actualizar
       this.colaboradorService.actualizarColaborador(this.idColaboradorAEditar!, formData).subscribe(() => {
         this.obtenerColaboradores();
         this.resetearFormulario();
-        alert('Colaborador actualizado correctamente.');
+        Swal.fire('¡Actualizado!', 'Colaborador actualizado correctamente.', 'success');
       });
     } else {
       // Lógica para crear
       this.colaboradorService.crearColaborador(formData).subscribe(() => {
         this.obtenerColaboradores();
         this.resetearFormulario();
-        alert('Colaborador creado correctamente.');
+        Swal.fire('¡Creado!', 'Colaborador creado correctamente.', 'success');
       });
     }
   }
 
   eliminarColaborador(id: number): void {
-    if (confirm('¿Estás seguro de que quieres eliminar este colaborador?')) {
-      this.colaboradorService.eliminarColaborador(id).subscribe(() => {
-        this.obtenerColaboradores();
-        alert('Colaborador eliminado correctamente.');
-      });
-    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.colaboradorService.eliminarColaborador(id).subscribe(() => {
+          this.obtenerColaboradores();
+          Swal.fire('¡Eliminado!', 'Colaborador eliminado correctamente.', 'success');
+        });
+      }
+    });
   }
 
   editarColaborador(colaborador: any): void {

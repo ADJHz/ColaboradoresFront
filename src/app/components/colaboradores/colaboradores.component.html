@@ -1,108 +1,220 @@
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="mb-4">Sistema de Colaboradores</h1>
+<!-- Asegúrate de tener Bootstrap, Bootstrap Icons y animate.css en tu proyecto para los estilos y animaciones. -->
+<div class="container py-5" style="max-width: 1300px;">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="fw-bold mb-1" style="font-size:2.8rem; letter-spacing: 2px;">
+                <span class="text-gradient-empresa">
+                    <i class="bi bi-people-fill me-2"></i> Sistema de Colaboradores
+                </span>
+            </h1>
         </div>
     </div>
 
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            {{ modoEdicion ? 'Actualizar Colaborador' : 'Crear Colaborador' }}
-        </div>
-        <div class="card-body">
-            <form [formGroup]="colaboradorForm" (ngSubmit)="onSubmit()">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="nombre_completo" class="form-label">Nombre Completo</label>
-                        <input type="text" formControlName="nombre_completo" class="form-control" id="nombre_completo">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="empresa" class="form-label">Empresa</label>
-                        <input type="text" formControlName="empresa" class="form-control" id="empresa">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="area" class="form-label">Área</label>
-                        <input type="text" formControlName="area" class="form-control" id="area">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="departamento" class="form-label">Departamento</label>
-                        <input type="text" formControlName="departamento" class="form-control" id="departamento">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="puesto" class="form-label">Puesto</label>
-                        <input type="text" formControlName="puesto" class="form-control" id="puesto">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="fecha_de_alta" class="form-label">Fecha de Alta</label>
-                        <input type="date" formControlName="fecha_de_alta" class="form-control" id="fecha_de_alta">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="fotografia" class="form-label">Fotografía</label>
-                        <input type="file" (change)="onFileSelected($event)" class="form-control" id="fotografia" accept="image/*">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="estatus" class="form-label">Estatus</label>
-                        <div class="form-check form-switch">
-                            <input formControlName="estatus" class="form-check-input" type="checkbox" role="switch" id="estatus">
-                            <label class="form-check-label" for="estatus">Activo</label>
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0 animate__animated animate__fadeInDown" style="border-radius: 1.5rem;">
+                <div class="card-header bg-gradient-empresa text-white d-flex align-items-center" style="border-top-left-radius: 1.5rem; border-top-right-radius: 1.5rem;">
+                    <i class="bi bi-person-plus-fill me-2 fs-3"></i>
+                    <span class="fs-4 fw-semibold">{{ modoEdicion ? 'Actualizar Colaborador' : 'Registrar Nuevo Colaborador' }}</span>
+                </div>
+                <div class="card-body bg-light" style="border-bottom-left-radius: 1.5rem; border-bottom-right-radius: 1.5rem;">
+                    <form [formGroup]="colaboradorForm" (ngSubmit)="onSubmit()">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label for="nombre_completo" class="form-label fw-semibold text-empresa">
+                                    <i class="bi bi-person-badge me-1"></i>Nombre Completo
+                                </label>
+                                <input type="text" formControlName="nombre_completo" class="form-control shadow-sm rounded-pill" id="nombre_completo">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="empresa" class="form-label fw-semibold text-empresa">
+                                    <i class="bi bi-building me-1"></i>Empresa
+                                </label>
+                                <input type="text" formControlName="empresa" class="form-control shadow-sm rounded-pill" id="empresa">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="area" class="form-label fw-semibold text-empresa">
+                                    <i class="bi bi-diagram-3 me-1"></i>Área
+                                </label>
+                                <input type="text" formControlName="area" class="form-control shadow-sm rounded-pill" id="area">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="departamento" class="form-label fw-semibold text-empresa">
+                                    <i class="bi bi-diagram-2 me-1"></i>Departamento
+                                </label>
+                                <input type="text" formControlName="departamento" class="form-control shadow-sm rounded-pill" id="departamento">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="puesto" class="form-label fw-semibold text-empresa">
+                                    <i class="bi bi-briefcase-fill me-1"></i>Puesto
+                                </label>
+                                <input type="text" formControlName="puesto" class="form-control shadow-sm rounded-pill" id="puesto">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fecha_de_alta" class="form-label fw-semibold text-empresa">
+                                    <i class="bi bi-calendar-date me-1"></i>Fecha de Alta
+                                </label>
+                                <input type="date" formControlName="fecha_de_alta" class="form-control shadow-sm rounded-pill" id="fecha_de_alta">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fotografia" class="form-label fw-semibold text-empresa">
+                                    <i class="bi bi-image me-1"></i>Fotografía
+                                </label>
+                                <input type="file" (change)="onFileSelected($event)" class="form-control shadow-sm rounded-pill" id="fotografia" accept="image/*">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="estatus" class="form-label fw-semibold text-empresa">
+                                    <i class="bi bi-check-circle-fill me-1"></i>Estatus
+                                </label>
+                                <div class="form-check form-switch ms-2 mt-2">
+                                    <input formControlName="estatus" class="form-check-input" type="checkbox" role="switch" id="estatus">
+                                    <label class="form-check-label ms-2" for="estatus">
+                                        <span [ngClass]="colaboradorForm.get('estatus')?.value ? 'text-success fw-bold' : 'text-danger fw-bold'">
+                                            <i class="bi" [ngClass]="colaboradorForm.get('estatus')?.value ? 'bi-check-circle-fill' : 'bi-x-circle-fill'"></i>
+                                            {{ colaboradorForm.get('estatus')?.value ? 'Activo' : 'Inactivo' }}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-4 text-end">
+                                <button type="submit" class="btn btn-gradient-empresa me-2 px-4 py-2 shadow-sm rounded-pill" [disabled]="colaboradorForm.invalid" [ngClass]="modoEdicion ? 'btn-warning' : 'btn-success'">
+                                    <i class="bi" [ngClass]="modoEdicion ? 'bi-arrow-repeat' : 'bi-plus-circle'"></i>
+                                    {{ modoEdicion ? 'Actualizar' : 'Registrar' }}
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary px-4 py-2 shadow-sm rounded-pill" (click)="resetearFormulario()">
+                                    <i class="bi bi-x-circle"></i> Cancelar
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12 mt-4">
-                        <button type="submit" class="btn btn-primary me-2" [disabled]="colaboradorForm.invalid">
-              {{ modoEdicion ? 'Actualizar' : 'Crear' }}
-            </button>
-                        <button type="button" class="btn btn-secondary" (click)="resetearFormulario()">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow-lg border-0 animate__animated animate__fadeInUp" style="border-radius: 1.5rem;">
+                <div class="card-header bg-gradient-success text-white d-flex align-items-center" style="border-top-left-radius: 1.5rem; border-top-right-radius: 1.5rem;">
+                    <i class="bi bi-list-ul me-2 fs-3"></i>
+                    <span class="fs-4 fw-semibold">Colaboradores</span>
+                </div>
+                <div class="card-body bg-white" style="border-bottom-left-radius: 1.5rem; border-bottom-right-radius: 1.5rem;">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle shadow-sm rounded" style="background: #f8f9fa;">
+                            <thead class="table-gradient-empresa text-dark">
+                                <tr>
+                                    <th><i class="bi bi-hash"></i> ID</th>
+                                    <th><i class="bi bi-person-badge"></i> Nombre Completo</th>
+                                    <th><i class="bi bi-building"></i> Empresa</th>
+                                    <th><i class="bi bi-diagram-3"></i> Área</th>
+                                    <th><i class="bi bi-diagram-2"></i> Departamento</th>
+                                    <th><i class="bi bi-briefcase-fill"></i> Puesto</th>
+                                    <th><i class="bi bi-calendar-date"></i> Fecha de Alta</th>
+                                    <th><i class="bi bi-check-circle-fill"></i> Estatus</th>
+                                    <th><i class="bi bi-image"></i> Fotografía</th>
+                                    <th><i class="bi bi-gear"></i> Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let colaborador of colaboradores" class="align-middle">
+                                    <td class="fw-bold text-primary">{{ colaborador.id }}</td>
+                                    <td class="fw-semibold">{{ colaborador.nombre_completo }}</td>
+                                    <td>
+                                        <span class="badge bg-info text-dark px-2 py-1 rounded-pill">
+                                            <i class="bi bi-building"></i> {{ colaborador.empresa }}
+                                        </span>
+                                    </td>
+                                    <td>{{ colaborador.area }}</td>
+                                    <td>{{ colaborador.departamento }}</td>
+                                    <td>{{ colaborador.puesto }}</td>
+                                    <td>
+                                        <span class="badge bg-light text-dark rounded-pill">
+                                            <i class="bi bi-calendar-date"></i> {{ colaborador.fecha_de_alta | date:'dd/MM/yyyy' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span [ngClass]="colaborador.estatus ? 'badge bg-success rounded-pill' : 'badge bg-danger rounded-pill'">
+                                            <i class="bi" [ngClass]="colaborador.estatus ? 'bi-check-circle-fill' : 'bi-x-circle-fill'"></i>
+                                            {{ colaborador.estatus ? 'Activo' : 'Inactivo' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <img *ngIf="colaborador.fotografia" [src]="'http://localhost:8000/fotografias/' + colaborador.fotografia" alt="Fotografía" class="rounded-circle border border-3 border-gradient-empresa shadow-sm" style="width: 55px; height: 55px; object-fit: cover;">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm me-2 shadow-sm rounded-circle" (click)="editarColaborador(colaborador)" title="Editar">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm shadow-sm rounded-circle" (click)="eliminarColaborador(colaborador.id)" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="colaboradores.length === 0">
+                                    <td colspan="10" class="text-center text-muted py-4">
+                                        <i class="bi bi-emoji-frown fs-3"></i> <br> No hay colaboradores registrados.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header bg-success text-white">
-            Lista de Colaboradores
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre Completo</th>
-                            <th>Empresa</th>
-                            <th>Área</th>
-                            <th>Departamento</th>
-                            <th>Puesto</th>
-                            <th>Fecha de Alta</th>
-                            <th>Estatus</th>
-                            <th>Fotografía</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let colaborador of colaboradores">
-                            <td>{{ colaborador.id }}</td>
-                            <td>{{ colaborador.nombre_completo }}</td>
-                            <td>{{ colaborador.empresa }}</td>
-                            <td>{{ colaborador.area }}</td>
-                            <td>{{ colaborador.departamento }}</td>
-                            <td>{{ colaborador.puesto }}</td>
-                            <td>{{ colaborador.fecha_de_alta | date }}</td>
-                            <td>{{ colaborador.estatus ? 'Activo' : 'Inactivo' }}</td>
-                            <td>
-                                <img *ngIf="colaborador.fotografia" src="http://localhost:8000/fotografias/{{ colaborador.fotografia }}" alt="Fotografía" style="width: 50px;">
-                            </td>
-                            <td>
-                                <button class="btn btn-warning btn-sm me-2" (click)="editarColaborador(colaborador)">Editar</button>
-                                <button class="btn btn-danger btn-sm" (click)="eliminarColaborador(colaborador.id)">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr *ngIf="colaboradores.length === 0">
-                            <td colspan="10" class="text-center">No hay colaboradores registrados.</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .text-gradient-empresa {
+        background: linear-gradient(90deg, #007bff 0%, #00c6ff 50%, #28a745 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .bg-gradient-empresa,
+    .bg-gradient-success {
+        background: linear-gradient(90deg, #007bff 0%, #00c6ff 50%, #28a745 100%) !important;
+    }
+    
+    .btn-gradient-empresa {
+        background: linear-gradient(90deg, #28a745 0%, #00c6ff 100%);
+        color: #fff;
+        border: none;
+        transition: box-shadow 0.2s;
+    }
+    
+    .btn-gradient-empresa:hover {
+        background: linear-gradient(90deg, #00c6ff 0%, #28a745 100%);
+        color: #fff;
+        box-shadow: 0 0 0 0.2rem #28a74533;
+    }
+    
+    .table-gradient-empresa {
+        background: linear-gradient(90deg, #007bff 0%, #00c6ff 50%, #28a745 100%);
+    }
+    
+    .table-gradient-empresa th {
+        color: #212529 !important;
+        border: none;
+    }
+    
+    .border-gradient-empresa {
+        border-image: linear-gradient(90deg, #007bff 0%, #00c6ff 50%, #28a745 100%) 1;
+    }
+    
+    .card,
+    .table {
+        border-radius: 1.5rem !important;
+    }
+    
+    input.form-control,
+    select.form-control {
+        border-radius: 2rem !important;
+    }
+    
+    .badge {
+        font-size: 0.95em;
+    }
+</style>
